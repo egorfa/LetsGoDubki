@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.dtd.letsgodubki" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/app_icon"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".FirstActivity"
+            android:label="@string/activity_first" >
+        </activity>
+        <activity
+            android:name=".Splash_screen"
+            android:label="@string/activity_splash"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            </activity>
+    </application>
+
+</manifest>
