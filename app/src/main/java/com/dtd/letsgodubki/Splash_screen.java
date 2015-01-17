@@ -20,7 +20,7 @@ public class Splash_screen extends Activity {
             public void run()
             {
                 try {
-                    sleep(5000);
+                    sleep(2510);//From Egor
                     startActivity(new Intent(Splash_screen.this, FirstActivity.class));
                     finish();
                 } catch (InterruptedException e) {
