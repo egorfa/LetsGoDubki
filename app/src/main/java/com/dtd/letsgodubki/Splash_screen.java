@@ -20,7 +20,7 @@ public class Splash_screen extends Activity {
             public void run()
             {
                 try {
-                    sleep(2500);//From Egor
+                    sleep(2500);//From Boris
                     startActivity(new Intent(Splash_screen.this, FirstActivity.class));
                     finish();
                 } catch (InterruptedException e) {
