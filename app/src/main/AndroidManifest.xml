@@ -28,15 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ThisNews">
-
-        </activity>
-        <activity android:name=".ThisStati">
-
-        </activity>
-        <activity android:name=".ThisVideo">
-
-        </activity>
     </application>
 
 </manifest>

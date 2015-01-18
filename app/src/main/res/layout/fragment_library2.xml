@@ -7,8 +7,12 @@
     android:orientation="vertical"
     android:background="#ffffff">
 
-    <ListView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/lvFrag2" />
+        android:text="FRAG2"
+        android:id="@+id/textView"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="120sp" />
 </RelativeLayout>

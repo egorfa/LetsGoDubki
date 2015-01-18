@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_gravity="top"
-            android:background="@color/btn_pressed"
+            android:background="@color/Tab"
             android:textColor="#ffffff">
         </android.support.v4.view.PagerTabStrip>
     </android.support.v4.view.ViewPager>

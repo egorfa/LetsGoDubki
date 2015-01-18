@@ -16,7 +16,7 @@ import android.util.Log;
 public class LibraryMenu extends FragmentActivity {
 
     static final String TAG = "myLogs";
-    static final int PAGE_COUNT = 3;
+    static final int PAGE_COUNT = 2;
 
     ViewPager pager;
     PagerAdapter pagerAdapter;
@@ -80,13 +80,10 @@ public class LibraryMenu extends FragmentActivity {
 
             switch (position){
                 case 0:
-                    menuString="Видео";
+                    menuString="Встречи";
                     break;
                 case 1:
-                    menuString="Статьи";
-                    break;
-                case 2:
-                    menuString="Книги";
+                    menuString="Ищу";
                     break;
             }
             return menuString;
