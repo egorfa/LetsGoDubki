@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dtd.letsgodubki" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
@@ -16,12 +19,24 @@
             android:label="@string/activity_splash"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionTheme">
+
+            </activity>
+        <activity android:name=".LibraryMenu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            </activity>
+        </activity>
+        <activity android:name=".ThisNews">
+
+        </activity>
+        <activity android:name=".ThisStati">
+
+        </activity>
+        <activity android:name=".ThisVideo">
+
+        </activity>
     </application>
 
 </manifest>
