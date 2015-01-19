@@ -29,7 +29,6 @@ public class LibraryMenu extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_library_pager);
-        Intent intent = getIntent();
         position = 0;
 
         pager = (ViewPager) findViewById(R.id.pager);
