@@ -42,6 +42,7 @@ public class ListMeetingsAdapter extends BaseAdapter {
             holder.txtTime = (TextView)convertView.findViewById(R.id.time);
             holder.txtTitle = (TextView)convertView.findViewById(R.id.title);
             holder.image = (ImageView)convertView.findViewById(R.id.image);
+            holder.people = (TextView)convertView.findViewById(R.id.image2);
 
             convertView.setTag(holder);
         }
@@ -50,8 +51,16 @@ public class ListMeetingsAdapter extends BaseAdapter {
         }
         Meeting meeting = listMeetings.get(position);
         holder.txtTime.setText(meeting.getTime());
-        holder.txtTitle.setText(meeting.getTitle());
+
+        String title = meeting.getTitle();
+        if(title.length() > 10)
+            title = title.substring(0, 10) + "...";
+
+        holder.txtTitle.setText(title);
         holder.image.setImageResource(meeting.getDrawableId());
+        holder.people.setBackgroundResource(meeting.getPeople());
+        holder.people.setText(meeting.getCurNum() + "/" + meeting.getNedNum());
+       // holder.people.setTextAlignment();
 
         return convertView;
     }
@@ -59,5 +68,6 @@ public class ListMeetingsAdapter extends BaseAdapter {
         TextView txtTime;
         TextView txtTitle;
         ImageView image;
+        TextView people;
     }
 }

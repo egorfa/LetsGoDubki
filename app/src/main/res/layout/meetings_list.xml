@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/MainBck">
+
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/addBtn"
+        android:background="@drawable/plus"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"/>
+
+
+    <com.dtd.letsgodubki.ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/LV1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/addBtn"
+        android:divider="@drawable/divider"
+        android:dividerHeight="2dp"
+        android:smoothScrollbar="false"/>
+
+
+
+</RelativeLayout>

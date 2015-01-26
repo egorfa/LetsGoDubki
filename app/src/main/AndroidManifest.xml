@@ -8,11 +8,16 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:label="@string/app_name" >
         <activity
             android:name=".FirstActivity"
-            android:label="@string/activity_first" >
+            android:label="@string/activity_first"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Splash_screen"
@@ -21,12 +26,11 @@
             android:theme="@style/NoActionTheme">
 
             </activity>
-        <activity android:name=".LibraryMenu">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity
+            android:label="Встречи"
+            android:name=".MeetingsActivity"
+            android:theme="@style/AppTheme">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
