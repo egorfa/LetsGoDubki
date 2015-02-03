@@ -17,9 +17,9 @@ public class MeetingsActivity extends Activity {
 
     @Override
      protected void attachBaseContext(Context newBase){
-        // super.attachBaseContext(new CalligraphyContextWrapper(newBase));
-        super.attachBaseContext(EdgeEffectOverride.createContextWrapper(newBase,
-                newBase.getResources().getColor(R.color.ActionBar)));
+         super.attachBaseContext(new CalligraphyContextWrapper(newBase));
+        /*super.attachBaseContext(EdgeEffectOverride.createContextWrapper(newBase,
+                newBase.getResources().getColor(R.color.ActionBar)));*/
         //EdgeEffectOverride.createContextThemeWrapper(newBase, R.drawable.actionbar_background, R.color.ActionBar);
     }
 

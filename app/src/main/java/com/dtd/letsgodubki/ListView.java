@@ -19,6 +19,9 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 
+import uk.co.androidalliance.edgeeffectoverride.ContextWrapperEdgeEffect;
+import uk.co.androidalliance.edgeeffectoverride.MulticastOnScrollListener;
+
 public class ListView extends android.widget.ListView {
 
     private OnScrollListener mLegacyOnScrollListener;

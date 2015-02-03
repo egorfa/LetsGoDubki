@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="main_bck">#f7f4f0</color>
     <color name="white">#ffffff</color>
     <color name="ActionBar">#808080</color>
     <color name="MainBck">#E5E5E5</color>
+    <color name="Button">#b2b2b2</color>
 </resources>
