@@ -2,12 +2,16 @@ package com.dtd.letsgodubki;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -25,6 +29,7 @@ public class MeetingAdd extends Activity {
     final int MENU_DRAWABLE_FILMS = 4;*/
 
     Button addImage;
+    final int DIALOG=1;
 
 
     @Override
@@ -44,25 +49,18 @@ public class MeetingAdd extends Activity {
         //ArrayList<String> values = new ArrayList<String>();
         //values.add("ТУСОВКА");
 
-        ArrayList<DialogMenuItem> arrayDialogMenuItems = new ArrayList<DialogMenuItem>();
-
-        DialogMenuItem tusovaka = new DialogMenuItem(R.drawable.drink, "ТУСОВКА");
-        DialogMenuItem music = new DialogMenuItem(R.drawable.guitar, "МУЗЫКА");
-        DialogMenuItem games = new DialogMenuItem(R.drawable.games, "ИГРЫ");
-        DialogMenuItem cinema = new DialogMenuItem(R.drawable.films, "КИНО");
-        arrayDialogMenuItems.add(tusovaka);
-        arrayDialogMenuItems.add(music);
-        arrayDialogMenuItems.add(games);
-        arrayDialogMenuItems.add(cinema);
-
-        final ListView lvDialogMenu = new ListView(this);
-        final ListDialogMenuAdapter adapter = new ListDialogMenuAdapter(this, arrayDialogMenuItems);
-        lvDialogMenu.setAdapter(adapter);
-        lvDialogMenu.setDivider(getResources().getDrawable(R.drawable.divider));
-        lvDialogMenu.setDividerHeight(2);
-
-
         addImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog(DIALOG);
+            }
+        });
+
+
+
+
+
+        /*addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final AlertDialog.Builder builderSingle = new AlertDialog.Builder(MeetingAdd.this);
@@ -76,7 +74,7 @@ public class MeetingAdd extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                             }
-                        });*/
+                        });
                 //builderSingle.setView(null).setMessage(null);
 
                 lvDialogMenu.setEdgeEffectColor(getResources().getColor(R.color.Red));
@@ -120,7 +118,7 @@ public class MeetingAdd extends Activity {
                     }
                 });
             }
-        });
+        });*/
     }
 
     /*public void onCreateContextMenu(ContextMenu menu, View v,
@@ -151,4 +149,54 @@ public class MeetingAdd extends Activity {
 
         return super.onContextItemSelected(item);
     }*/
+
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+        //adb.setTitle("Custom dialog");
+        // создаем view из dialog.xml
+        FrameLayout view = (FrameLayout) getLayoutInflater()
+                .inflate(R.layout.dialog_type, null);
+        ListView lv = (ListView) view.findViewById(R.id.lvTypes);
+
+        ArrayList<DialogMenuItem> arrayDialogMenuItems = new ArrayList<DialogMenuItem>();
+
+        DialogMenuItem tusovka = new DialogMenuItem(R.drawable.drink, "ТУСОВКА");
+        DialogMenuItem music = new DialogMenuItem(R.drawable.guitar, "МУЗЫКА");
+        DialogMenuItem games = new DialogMenuItem(R.drawable.games, "ИГРЫ");
+        DialogMenuItem cinema = new DialogMenuItem(R.drawable.films, "КИНО");
+        arrayDialogMenuItems.add(tusovka);
+        arrayDialogMenuItems.add(music);
+        arrayDialogMenuItems.add(games);
+        arrayDialogMenuItems.add(cinema);
+
+        ListDialogMenuAdapter adapter = new ListDialogMenuAdapter(this, arrayDialogMenuItems);
+        lv.setAdapter(adapter);
+
+
+        // устанавливаем ее, как содержимое тела диалога
+        adb.setView(view);
+        // находим TexView для отображения кол-ва
+        return adb.create();
+    }
+
+    @Override
+    protected void onPrepareDialog(int id, Dialog dialog) {
+        super.onPrepareDialog(id, dialog);
+        if (id == DIALOG) {
+            ListView lvTypes = (ListView) dialog.getWindow().findViewById(R.id.lvTypes);
+            lvTypes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    Toast t = Toast.makeText(getBaseContext(),"Ширина:" + view.getWidth(), Toast.LENGTH_LONG);
+                    t.setGravity(Gravity.CENTER, 0, 0);
+                    t.show();
+                }
+            });
+
+        }
+    }
+
 }

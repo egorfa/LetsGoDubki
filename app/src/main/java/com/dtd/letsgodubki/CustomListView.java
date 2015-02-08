@@ -22,20 +22,20 @@ import android.util.AttributeSet;
 import uk.co.androidalliance.edgeeffectoverride.ContextWrapperEdgeEffect;
 import uk.co.androidalliance.edgeeffectoverride.MulticastOnScrollListener;
 
-public class ListView extends android.widget.ListView {
+public class CustomListView extends android.widget.ListView {
 
     private OnScrollListener mLegacyOnScrollListener;
     private final MulticastOnScrollListener mMulticastOnScrollListener = new MulticastOnScrollListener();
 
-    public ListView(Context context) {
+    public CustomListView(Context context) {
         this(context, null);
     }
 
-    public ListView(Context context, AttributeSet attrs) {
+    public CustomListView(Context context, AttributeSet attrs) {
         this(context, attrs, android.R.attr.listViewStyle);
     }
 
-    public ListView(Context context, AttributeSet attrs, int defStyle) {
+    public CustomListView(Context context, AttributeSet attrs, int defStyle) {
         super(new ContextWrapperEdgeEffect(context), attrs, defStyle);
         init(context, attrs, defStyle);
     }

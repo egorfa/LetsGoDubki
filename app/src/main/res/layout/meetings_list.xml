@@ -16,7 +16,7 @@
         android:layout_centerHorizontal="true"/>
 
 
-    <com.dtd.letsgodubki.ListView
+    <com.dtd.letsgodubki.CustomListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/LV1"
