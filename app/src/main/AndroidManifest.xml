@@ -18,6 +18,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".Splash_screen"
@@ -30,6 +31,20 @@
             android:label="Встречи"
             android:name=".MeetingsActivity"
             android:theme="@style/AppTheme">
+
+        </activity>
+        <activity
+            android:label="Встречи_Описание"
+            android:name=".MeetingDescriptionActivity"
+            android:theme="@style/AppTheme">
+
+
+        </activity>
+        <activity
+            android:label="Встречи_Добавление"
+            android:name=".MeetingAdd"
+            android:theme="@style/AppTheme">
+
 
         </activity>
     </application>

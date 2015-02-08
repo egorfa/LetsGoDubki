@@ -13,7 +13,7 @@
     </style>
 
     <style name="MyActionBar" parent="MyAcBr">
-        <item name="android:background">@color/Button</item>
+        <item name="android:background">@color/Blue</item>
         <item name="android:customNavigationLayout">@layout/actionbar_center</item>
     </style>
 
@@ -25,7 +25,7 @@
 
 
     <style name="FirstScreenActionBar" parent="MyAcBr">
-        <item name="android:background">@color/Button</item>
+        <item name="android:background">@color/Blue</item>
         <item name="android:customNavigationLayout">@layout/first_screen_action_bar</item>
     </style>
 

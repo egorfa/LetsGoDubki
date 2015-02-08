@@ -4,4 +4,10 @@
     <color name="ActionBar">#808080</color>
     <color name="MainBck">#E5E5E5</color>
     <color name="Button">#b2b2b2</color>
+    <color name="Background">#FFD4BB</color>
+    <color name="Blue">#0071BB</color>
+    <color name="Red">#BE000E</color>
+    <color name="Black">#000000</color>
+
+
 </resources>
