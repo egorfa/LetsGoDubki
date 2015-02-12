@@ -43,7 +43,8 @@
         <activity
             android:label="Встречи_Добавление"
             android:name=".MeetingAdd"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan">
 
 
         </activity>

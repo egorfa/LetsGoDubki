@@ -4,12 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@color/Background"
         android:id="@+id/RL"
-        android:layout_above="@+id/rlBot">
+        android:layout_above="@+id/rlBot"
+        android:paddingBottom="20dp">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
         <TextView
             android:layout_width="wrap_content"
@@ -20,29 +24,21 @@
             android:textColor="@color/Red"
             android:gravity="center"
             android:layout_marginTop="30dp"
-            android:layout_marginLeft="10dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/heading"
-            android:text="Название"
-            android:textSize="20sp"
-            android:textColor="@color/Black"
-            android:layout_toEndOf="@+id/number1"
-            android:layout_alignBottom="@+id/number1"
-            android:layout_marginLeft="5dp"/>
+            android:layout_marginLeft="13dp"/>
 
         <EditText
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:id="@+id/headingText"
             android:layout_alignBottom="@+id/number1"
-            android:layout_toEndOf="@+id/heading"
+            android:layout_toEndOf="@+id/number1"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="@color/white"/>
+            android:background="@color/white"
+            android:hint="Название"
+            android:gravity="center"
+            android:paddingTop="5dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,38 +48,30 @@
             android:text="2."
             android:textColor="@color/Red"
             android:textSize="20sp"
-            android:layout_alignLeft="@+id/number1"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
             android:gravity="center"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/startAt"
-            android:text="Старт"
-            android:textSize="20sp"
-            android:textColor="@color/Black"
-            android:layout_toEndOf="@+id/number2"
-            android:layout_alignBottom="@+id/number2"
-            android:layout_marginLeft="5dp"/>
-
         <EditText
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:id="@+id/startText"
             android:layout_alignBottom="@+id/number2"
-            android:layout_toEndOf="@+id/startAt"
+            android:layout_toEndOf="@+id/number2"
             android:layout_marginLeft="20dp"
             android:background="@color/white"
             android:layout_toLeftOf="@+id/number3"
-            android:layout_marginRight="30dp"/>
+            android:layout_marginRight="30dp"
+            android:hint="Время начала"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:inputType="time" />
 
         <Button
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/button_plus"
             android:layout_alignParentRight="true"
-            android:layout_alignRight="@+id/startAt"
             android:layout_below="@+id/number1"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
@@ -94,12 +82,13 @@
             android:layout_height="wrap_content"
             android:id="@+id/typeAdd"
             android:text="Тип"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="@color/Black"
             android:layout_toLeftOf="@+id/imgTypeAdd"
             android:layout_marginLeft="5dp"
             android:layout_below="@+id/headingText"
-            android:layout_alignTop="@+id/startText"
+            android:layout_alignTop="@+id/number3"
+            android:layout_marginTop="2dp"
             android:layout_marginRight="10dp"/>
 
         <TextView
@@ -111,7 +100,7 @@
             android:textSize="20sp"
             android:layout_toLeftOf="@+id/typeAdd"
             android:gravity="center"
-            android:layout_alignTop="@+id/startText"/>
+            android:layout_alignTop="@+id/number2"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -121,31 +110,23 @@
             android:text="4."
             android:textColor="@color/Red"
             android:textSize="20sp"
-            android:layout_alignLeft="@+id/number1"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
             android:gravity="center"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/hostel"
-            android:text="Общежитие"
-            android:textSize="20sp"
-            android:textColor="@color/Black"
-            android:layout_toEndOf="@+id/number4"
-            android:layout_alignBottom="@+id/number4"
-            android:layout_marginLeft="5dp"/>
-
         <EditText
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:id="@+id/hostelText"
             android:layout_alignBottom="@+id/number4"
-            android:layout_toEndOf="@+id/hostel"
+            android:layout_toEndOf="@+id/number4"
             android:layout_alignRight="@+id/startText"
-            android:layout_marginLeft="35dp"
+            android:layout_marginStart="20dp"
             android:background="@color/white"
-            android:inputType="number" />
+            android:hint="Общежитие"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:inputType="time" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -159,28 +140,20 @@
             android:layout_marginTop="20dp"
             android:gravity="center"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/flatInHostel"
-            android:text="КВ."
-            android:textSize="20sp"
-            android:textColor="@color/Black"
-            android:layout_toEndOf="@+id/number5"
-            android:layout_alignBottom="@+id/number5"
-            android:layout_marginLeft="5dp"/>
-
         <EditText
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:id="@+id/flatText"
             android:layout_alignBottom="@+id/number5"
-            android:layout_toEndOf="@+id/flatInHostel"
+            android:layout_toEndOf="@+id/number5"
             android:layout_alignParentRight="true"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="20dp"
             android:background="@color/white"
-            android:inputType="number" />
+            android:inputType="number"
+            android:hint="Кв."
+            android:gravity="center"
+            android:paddingTop="5dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -190,26 +163,15 @@
             android:text="6."
             android:textColor="@color/Red"
             android:textSize="20sp"
-            android:layout_alignLeft="@+id/number1"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
             android:gravity="center"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/comments"
-            android:text="Комментарии"
-            android:textSize="20sp"
-            android:textColor="@color/Black"
-            android:layout_toEndOf="@+id/number6"
-            android:layout_alignBottom="@+id/number6"
-            android:layout_marginLeft="5dp"/>
 
         <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:layout_alignTop="@+id/number6"
-            android:layout_toEndOf="@+id/comments"
+            android:layout_toEndOf="@+id/number6"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -219,7 +181,10 @@
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:id="@+id/commentsText"/>
+                android:id="@+id/commentsText"
+                android:hint="Описание"
+                android:gravity="center"
+                android:background="@drawable/background_edittext"/>
 
 
         </ScrollView>
@@ -232,29 +197,23 @@
             android:text="7."
             android:textColor="@color/Red"
             android:textSize="20sp"
-            android:layout_alignLeft="@+id/number1"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
             android:gravity="center"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/contactsAdd"
-            android:text="Контакты"
-            android:textSize="20sp"
-            android:textColor="@color/Black"
-            android:layout_toEndOf="@+id/number7"
-            android:layout_alignBottom="@+id/number7"
-            android:layout_marginLeft="5dp"/>
-
         <EditText
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:id="@+id/contactsText"
             android:layout_alignBottom="@+id/number7"
-            android:layout_alignLeft="@+id/commentsScroll"
-            android:layout_alignRight="@+id/commentsScroll"
-            android:background="@color/white"/>
+            android:layout_toEndOf="@+id/number7"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:background="@color/white"
+            android:hint="Контакты"
+            android:gravity="center"
+            android:paddingTop="5dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -264,29 +223,24 @@
             android:text="8."
             android:textColor="@color/Red"
             android:textSize="20sp"
-            android:layout_alignLeft="@+id/number1"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
             android:gravity="center"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/actualTill"
-            android:text="Актуально ДО"
-            android:textSize="20sp"
-            android:textColor="@color/Black"
-            android:layout_toEndOf="@+id/number8"
-            android:layout_alignBottom="@+id/number8"
-            android:layout_marginLeft="5dp"/>
-
         <EditText
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/actualTillText"
+            android:layout_height="30dp"
+            android:id="@+id/curPeopleText"
             android:layout_alignBottom="@+id/number8"
             android:background="@color/white"
-            android:layout_alignRight="@+id/hostelText"
-            android:layout_alignLeft="@+id/hostelText"/>
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_toEndOf="@+id/number8"
+            android:layout_marginLeft="20dp"
+            android:inputType="number"
+            android:hint="Текущее число людей"
+            android:gravity="center"
+            android:paddingTop="5dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -296,33 +250,27 @@
             android:text="9."
             android:textColor="@color/Red"
             android:textSize="20sp"
-            android:layout_alignLeft="@+id/number1"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
             android:gravity="center"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/consists"
-            android:text="Состав"
-            android:textSize="20sp"
-            android:textColor="@color/Black"
-            android:layout_toEndOf="@+id/number9"
-            android:layout_alignBottom="@+id/number9"
-            android:layout_marginLeft="5dp"/>
-
         <EditText
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/consistsText"
+            android:layout_height="30dp"
+            android:id="@+id/needPeopleText"
             android:layout_alignBottom="@+id/number9"
             android:background="@color/white"
-            android:layout_alignRight="@+id/hostelText"
-            android:layout_toEndOf="@+id/consists"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_toEndOf="@+id/number9"
             android:layout_marginLeft="20dp"
-            android:inputType="number" />
+            android:inputType="number"
+            android:hint="Желаемое число людей"
+            android:gravity="center"
+            android:paddingTop="5dp"/>
 
         </RelativeLayout>
+    </ScrollView>
 
     <RelativeLayout
         android:layout_width="fill_parent"

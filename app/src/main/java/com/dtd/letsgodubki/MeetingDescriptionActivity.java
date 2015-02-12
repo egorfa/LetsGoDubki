@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +21,7 @@ public class MeetingDescriptionActivity extends Activity{
 
     TextView title, time, peopleNumber, flat;
     ImageView imageTheme;
+    Button btnGo;
 
     @Override
     protected void attachBaseContext(Context newBase){
@@ -37,6 +40,7 @@ public class MeetingDescriptionActivity extends Activity{
         peopleNumber = (TextView)findViewById(R.id.peopleNum);
         imageTheme = (ImageView)findViewById(R.id.imgType);
         flat = (TextView)findViewById(R.id.flatNum);
+        btnGo = (Button)findViewById(R.id.btnGoJoin);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -59,5 +63,13 @@ public class MeetingDescriptionActivity extends Activity{
                     Log.d("ERROR", e.getMessage());
                 }
             }
+
+        btnGo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(MeetingDescriptionActivity.this, MeetingsActivity.class);
+                startActivity(intent1);
+            }
+        });
     }
 }

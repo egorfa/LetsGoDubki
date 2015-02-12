@@ -5,13 +5,11 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -182,17 +180,27 @@ public class MeetingAdd extends Activity {
     }
 
     @Override
-    protected void onPrepareDialog(int id, Dialog dialog) {
+    protected void onPrepareDialog(int id, final Dialog dialog) {
         super.onPrepareDialog(id, dialog);
         if (id == DIALOG) {
             ListView lvTypes = (ListView) dialog.getWindow().findViewById(R.id.lvTypes);
             lvTypes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                    Toast t = Toast.makeText(getBaseContext(),"Ширина:" + view.getWidth(), Toast.LENGTH_LONG);
-                    t.setGravity(Gravity.CENTER, 0, 0);
-                    t.show();
+                    switch(i){
+                        case 0:
+                            addImage.setBackground(getResources().getDrawable(R.drawable.drink));
+                            break;
+                        case 1:
+                            addImage.setBackground(getResources().getDrawable(R.drawable.guitar));
+                            break;
+                        case 2:
+                            addImage.setBackground(getResources().getDrawable(R.drawable.games));
+                            break;
+                        case 3:
+                            addImage.setBackground(getResources().getDrawable(R.drawable.films));
+                    }
+                    dialog.dismiss();
                 }
             });
 
