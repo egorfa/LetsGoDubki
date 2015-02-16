@@ -280,13 +280,16 @@
         android:orientation="vertical"
         android:background="@color/Blue">
 
-        <ImageView
+        <ImageButton
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/go_btn"
-            android:layout_gravity="center" />
+            android:src="@drawable/go_btn"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:background="@android:color/transparent"
+            android:id="@+id/btn_go" />
 
         </RelativeLayout>
 
