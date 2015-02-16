@@ -13,11 +13,6 @@
             android:name=".FirstActivity"
             android:label="@string/activity_first"
             android:theme="@style/FirstScreenActionTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity
@@ -25,6 +20,11 @@
             android:label="@string/activity_splash"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
             </activity>
         <activity
