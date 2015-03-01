@@ -65,17 +65,24 @@
             android:hint="Время начала"
             android:gravity="center"
             android:paddingTop="5dp"
-            android:inputType="time" />
+            android:clickable="true"
+            android:cursorVisible="false"
+            android:editable="false"
+            android:inputType="none"
+            android:singleLine="true"
+            android:textSize="15sp" />
 
-        <Button
+        <ImageButton
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/button_plus"
             android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
             android:layout_below="@+id/number1"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
-            android:id="@+id/imgTypeAdd"/>
+            android:id="@+id/imgTypeAdd"
+            android:src="@drawable/guitar"
+            android:scaleType="fitXY" />
 
         <TextView
             android:layout_width="wrap_content"

@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
+
+import com.twotoasters.jazzylistview.JazzyHelper;
+import com.twotoasters.jazzylistview.JazzyListView;
 
 import java.util.ArrayList;
 
@@ -20,6 +22,14 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class MeetingsActivity extends Activity {
 
     Button addBtn;
+
+    protected class JSON_element
+    {
+        String title;
+        String creadted;
+        String link;
+        String img_link;
+    }
 
     @Override
      protected void attachBaseContext(Context newBase){
@@ -47,7 +57,9 @@ public class MeetingsActivity extends Activity {
         });
 
         final ArrayList<Meeting> arrayMeetings;
-        ListView listViewMeetings;
+        JazzyListView listViewMeetings;
+
+
 
         arrayMeetings = new ArrayList<Meeting>();
 
@@ -77,7 +89,8 @@ public class MeetingsActivity extends Activity {
         arrayMeetings.add(drink10);
         arrayMeetings.add(drink11);
 
-        listViewMeetings = (ListView)findViewById(R.id.LV1);
+        listViewMeetings = (JazzyListView)findViewById(R.id.LV1);
+        listViewMeetings.setTransitionEffect(JazzyHelper.FADE);
         ListMeetingsAdapter adapter = new ListMeetingsAdapter(this, arrayMeetings);
         listViewMeetings.setAdapter(adapter);
 
@@ -98,5 +111,6 @@ public class MeetingsActivity extends Activity {
                 startActivity(intent);
             }
         });
+
     }
 }
