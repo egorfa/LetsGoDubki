@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dtd.letsgodubki.MeetingsActivity.MeetItem;
+
 import java.util.List;
 
 /**
@@ -16,10 +18,10 @@ import java.util.List;
 public class ListMeetingsAdapter extends BaseAdapter {
     Context context;
 
-    protected List<Meeting> listMeetings;
+    protected List<MeetItem> listMeetings;
     LayoutInflater inflater;
 
-    public ListMeetingsAdapter(Context context, List<Meeting> listMeetings){
+    public ListMeetingsAdapter(Context context, List<MeetItem> listMeetings){
         this.listMeetings = listMeetings;
         this.inflater = LayoutInflater.from(context);
         this.context = context;
@@ -27,12 +29,10 @@ public class ListMeetingsAdapter extends BaseAdapter {
     public int getCount(){
         return listMeetings.size();
     }
-    public Meeting getItem(int position){
+    public MeetItem getItem(int position){
         return listMeetings.get(position);
     }
-    public long getItemId(int position){
-        return listMeetings.get(position).getDrawableId();
-    }
+    public long getItemId(int position){return listMeetings.get(position).dormitory;}
     public View getView(int position, View convertView, ViewGroup parent){
         ViewHolder holder;
         if(convertView == null){
@@ -48,17 +48,35 @@ public class ListMeetingsAdapter extends BaseAdapter {
         else{
             holder = (ViewHolder)convertView.getTag();
         }
-        Meeting meeting = listMeetings.get(position);
-        holder.txtTime.setText(meeting.getTime());
+        MeetItem meeting = listMeetings.get(position);
 
-        String title = meeting.getTitle();
+        if(!meeting.starttime.equals("")) {
+
+            String str = meeting.starttime.substring(11, 16);
+
+            holder.txtTime.setText(str);
+        }
+
+        String title = meeting.header;
         if(title.length() > 10)
             title = title.substring(0, 10) + "...";
 
         holder.txtTitle.setText(title);
-        holder.image.setImageResource(meeting.getDrawableId());
-        holder.people.setBackgroundResource(meeting.getPeople());
-        holder.people.setText(meeting.getCurNum() + "/" + meeting.getNedNum());
+        int resId = 0;
+        if(meeting.category.equals("drink")){
+            resId = R.drawable.drink;
+        }else if(meeting.category.equals("guitar")){
+            resId = R.drawable.guitar;
+        }else if(meeting.category.equals("films")){
+            resId = R.drawable.films;
+        }else if(meeting.category.equals("games")){
+            resId = R.drawable.games;
+        }
+
+        if(resId!=0) {
+            holder.image.setImageResource(resId);
+        }
+        holder.people.setText(meeting.currentp + "/" + meeting.limitp);
        // holder.people.setTextAlignment();
 
         return convertView;

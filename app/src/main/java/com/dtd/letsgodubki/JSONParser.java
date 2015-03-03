@@ -5,10 +5,11 @@ import android.util.Log;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,9 +18,9 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
 public class JSONParser {
-    static InputStream is = null;
-    static JSONArray jObj = null;
-    static String json = "";
+    InputStream is = null;
+    JSONArray jObj;
+    String json = "";
     // constructor
     public JSONParser() {
     }
@@ -28,7 +29,7 @@ public class JSONParser {
         try {
             // defaultHttpClient
             DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(url);
+            HttpGet httpPost = new HttpGet(url);
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
             is = httpEntity.getContent();
@@ -42,11 +43,11 @@ public class JSONParser {
         }
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    is, "iso-8859-1"), 8);
+                    is, "utf-8"), 8);
             StringBuilder sb = new StringBuilder();
             String line = null;
             while ((line = reader.readLine()) != null) {
-                sb.append(line + "n");
+                sb.append(line);//+"n"
             }
             is.close();
             json = sb.toString();
@@ -59,7 +60,13 @@ public class JSONParser {
 
         // try parse the string to a JSON object
         try {
-            jObj = new JSONArray(json);
+            JSONObject jObject = new JSONObject(json);
+
+            if(jObject.has("items")) {
+                jObj = jObject.getJSONArray("items");
+            }else{
+                jObj = null;
+            }
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }

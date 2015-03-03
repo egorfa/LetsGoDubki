@@ -3,15 +3,21 @@ package com.dtd.letsgodubki;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
+import android.widget.TextView;
 
 import com.twotoasters.jazzylistview.JazzyHelper;
 import com.twotoasters.jazzylistview.JazzyListView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -21,22 +27,41 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
  */
 public class MeetingsActivity extends Activity {
 
-    Button addBtn;
+    private String TAG_URL1 = "https://letsgodubki-dtd.appspot.com/_ah/api/dubkiapi/v1/myitems?dormitory=";
+    private String TAG_URL2 = "&order=starttime";
 
-    protected class JSON_element
-    {
-        String title;
-        String creadted;
-        String link;
-        String img_link;
+    private String TAG_LIMITP = "limitp";
+    private String TAG_CONTACTS = "contacts";
+    private String TAG_CURRENTP = "currentp";
+    private String TAG_DORMITORY = "dormitory";
+    private String TAG_HEADER = "header";
+    private String TAG_STARTTIME = "starttime";
+    private String TAG_ENDTIME = "endtime";
+    private String TAG_DESCRIPTION = "description";
+    private String TAG_CATEGORY = "category";
+    private String TAG_ID = "id";
+
+
+    TextView mTitle;
+
+    String NumDorm;
+
+    public class MeetItem {
+        String category;
+        Integer limitp;
+        String contacts;
+        Integer currentp;
+        Integer dormitory;
+        String header;
+        String starttime;
+        String endtime;
+        String description;
+        String ID;
     }
 
     @Override
-     protected void attachBaseContext(Context newBase){
-         super.attachBaseContext(new CalligraphyContextWrapper(newBase));
-        /*super.attachBaseContext(EdgeEffectOverride.createContextWrapper(newBase,
-                newBase.getResources().getColor(R.color.ActionBar)));*/
-        //EdgeEffectOverride.createContextThemeWrapper(newBase, R.drawable.actionbar_background, R.color.ActionBar);
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(new CalligraphyContextWrapper(newBase));
     }
 
     @Override
@@ -47,70 +72,124 @@ public class MeetingsActivity extends Activity {
 
         setContentView(R.layout.meetings_list);
 
-        addBtn = (Button)findViewById(R.id.addBtn);
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MeetingsActivity.this, MeetingAdd.class);
-                startActivity(intent);
-            }
-        });
+        View view = getActionBar().getCustomView();
+        mTitle = (TextView) view.findViewById(R.id.actionbarTitle);
 
-        final ArrayList<Meeting> arrayMeetings;
+
+        Intent intent = getIntent();
+        NumDorm = intent.getExtras().getString("Dormitory");
+        String dorm = "";
+        switch (NumDorm.toString()){
+            case "7":
+                dorm=NumDorm.toString();
+                break;
+            case "91":
+                dorm = "9/1";
+                break;
+            case "92":
+                dorm = "9/2";
+                break;
+        }
+
+        mTitle.setText("Встречи в " + dorm);
+
         JazzyListView listViewMeetings;
 
-
-
-        arrayMeetings = new ArrayList<Meeting>();
-
-        Meeting mafia = new Meeting(R.drawable.drink, "15:01", "Вечером играем в мафию", R.drawable.circle, "5", "15", "507");
-        Meeting drink1 = new Meeting(R.drawable.drink, "13:42", "Кальян, девочки, чувачки", R.drawable.circle, "0", "8", "203");
-        Meeting drink2 = new Meeting(R.drawable.games, "18:00", "Рыба1", R.drawable.circle, "1", "5", "444");
-        Meeting drink3 = new Meeting(R.drawable.films, "19:50", "Рыба2", R.drawable.circle, "2", "5", "555");
-        Meeting drink4 = new Meeting(R.drawable.guitar, "02:42", "Рыба3", R.drawable.circle, "3", "5", "666");
-        Meeting drink5 = new Meeting(R.drawable.guitar, "13:31", "Рыба4", R.drawable.circle, "4", "5", "777");
-        Meeting drink6 = new Meeting(R.drawable.drink, "13:55", "Рыба5", R.drawable.circle, "5", "5", "888");
-        Meeting drink7 = new Meeting(R.drawable.games, "20:00", "Рыба6", R.drawable.circle, "6", "10", "999");
-        Meeting drink8 = new Meeting(R.drawable.films, "10:10", "Рыба7", R.drawable.circle, "10", "10", "1000");
-        Meeting drink9 = new Meeting(R.drawable.guitar, "13:42", "Рыба8", R.drawable.circle, "7", "10", "1010");
-        Meeting drink10 = new Meeting(R.drawable.films, "13:42", "Рыба9", R.drawable.circle, "8", "10", "1111");
-        Meeting drink11 = new Meeting(R.drawable.drink, "13:42", "Рыба10", R.drawable.circle, "9", "10", "1212");
-
-        arrayMeetings.add(mafia);
-        arrayMeetings.add(drink1 );
-        arrayMeetings.add(drink2 );
-        arrayMeetings.add(drink3 );
-        arrayMeetings.add(drink4 );
-        arrayMeetings.add(drink5 );
-        arrayMeetings.add(drink6 );
-        arrayMeetings.add(drink7 );
-        arrayMeetings.add(drink8 );
-        arrayMeetings.add(drink9 );
-        arrayMeetings.add(drink10);
-        arrayMeetings.add(drink11);
-
-        listViewMeetings = (JazzyListView)findViewById(R.id.LV1);
+        listViewMeetings = (JazzyListView) findViewById(R.id.LV1);
         listViewMeetings.setTransitionEffect(JazzyHelper.FADE);
-        ListMeetingsAdapter adapter = new ListMeetingsAdapter(this, arrayMeetings);
-        listViewMeetings.setAdapter(adapter);
 
-        listViewMeetings.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
-            @Override
-            public void onItemClick(AdapterView<?>adapter,View v, int position, long id){
 
-                Intent intent = new Intent(MeetingsActivity.this,MeetingDescriptionActivity.class);
+        JSONParse newsTask = new JSONParse();
+        newsTask.execute(TAG_URL1 + NumDorm + TAG_URL2);
+        try{
+            final ArrayList<MeetItem> array = newsTask.get();
+            ListMeetingsAdapter adapter = new ListMeetingsAdapter(this, array);
+            listViewMeetings.setAdapter(adapter);
+            listViewMeetings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-                intent.putExtra("Theme", arrayMeetings.get(position).getTitle());
-                intent.putExtra("Time", arrayMeetings.get(position).getTime());
-                intent.putExtra("ImageTheme", arrayMeetings.get(position).getDrawableId());
-                intent.putExtra("CurNumPeople", arrayMeetings.get(position).getCurNum());
-                intent.putExtra("NeedNumPeople", arrayMeetings.get(position).getNedNum());
-                intent.putExtra("flatNum", arrayMeetings.get(position).getflatNum());
+                @Override
+                public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
 
-                startActivity(intent);
+                    Intent intent = new Intent(MeetingsActivity.this, MeetingDescriptionActivity.class);
+
+                    intent.putExtra("Theme", array.get(position).header);
+                    intent.putExtra("Time", array.get(position).starttime);
+                    intent.putExtra("Category", array.get(position).category);
+                    intent.putExtra("CurNumPeople", array.get(position).currentp);
+                    intent.putExtra("NeedNumPeople", array.get(position).limitp);
+                    intent.putExtra("Content", array.get(position).description);
+                    intent.putExtra("Dormitory", array.get(position).dormitory);
+                    intent.putExtra("Contacts", array.get(position).contacts);
+                    intent.putExtra("ID", array.get(position).ID);
+                    //intent.putExtra("flatNum", array.get(position).flat);
+
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.activity_down_up_enter, R.anim.activity_down_up_exit);
+                    finish();
+                }
+            });
+
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+    class JSONParse extends AsyncTask<String, String, ArrayList<MeetItem>> {
+
+        @Override
+        protected ArrayList<MeetItem> doInBackground(String... args) {
+            JSONParser news_jParser = new JSONParser();
+            JSONArray json = news_jParser.getJSONFromUrl(args[0]);
+            ArrayList<MeetItem> JSON_array = new ArrayList<MeetItem>();
+            if (json!=null){
+                try {
+                    for (int i = 0; i < json.length(); i++) {
+                        MeetItem buf = new MeetItem();
+                        buf.limitp = Integer.valueOf(checkNull(json.getJSONObject(i), TAG_LIMITP));
+                        buf.contacts = checkNull(json.getJSONObject(i), TAG_CONTACTS);
+                        buf.currentp = Integer.valueOf(checkNull(json.getJSONObject(i), TAG_CURRENTP));
+                        buf.dormitory = Integer.valueOf(checkNull(json.getJSONObject(i), TAG_DORMITORY));
+                        buf.header = checkNull(json.getJSONObject(i), TAG_HEADER);
+                        buf.starttime= checkNull(json.getJSONObject(i), TAG_STARTTIME);
+                        buf.endtime = checkNull(json.getJSONObject(i), TAG_ENDTIME);
+                        buf.description = checkNull(json.getJSONObject(i), TAG_DESCRIPTION);
+                        buf.category = checkNull(json.getJSONObject(i), TAG_CATEGORY);
+                        buf.ID = checkNull(json.getJSONObject(i), TAG_ID);
+                        JSON_array.add(buf);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        });
+            return JSON_array;
+        }
 
+        @Override
+        protected void onPostExecute(ArrayList<MeetItem> news_array) {
+        }
+
+    }
+
+    private String checkNull(JSONObject json, String str_in){
+        if (json.has(str_in)){
+            try {
+                return json.getString(str_in);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }else return "";
+        return "";
+    }
+
+    @Override
+    public void onBackPressed(){
+        finish();
     }
 }
