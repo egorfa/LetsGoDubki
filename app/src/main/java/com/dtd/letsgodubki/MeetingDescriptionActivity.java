@@ -83,7 +83,7 @@ public class MeetingDescriptionActivity extends Activity{
                 Id = extras.getString("ID");
 
                 try {
-                    title.setText(Theme);
+                    title.setText("«" + Theme + "»");
                     if(!Time.equals("")){
                     String t = Time.substring(11, 16);
                     time.setText(t);}

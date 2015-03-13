@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
-import com.twotoasters.jazzylistview.JazzyHelper;
 import com.twotoasters.jazzylistview.JazzyListView;
 
 import org.json.JSONArray;
@@ -43,6 +42,7 @@ public class MeetingsActivity extends Activity {
 
 
     TextView mTitle;
+    JazzyListView listViewMeetings;
 
     String NumDorm;
 
@@ -93,10 +93,9 @@ public class MeetingsActivity extends Activity {
 
         mTitle.setText("Встречи в " + dorm);
 
-        JazzyListView listViewMeetings;
+
 
         listViewMeetings = (JazzyListView) findViewById(R.id.LV1);
-        listViewMeetings.setTransitionEffect(JazzyHelper.FADE);
 
 
 
@@ -104,8 +103,8 @@ public class MeetingsActivity extends Activity {
         newsTask.execute(TAG_URL1 + NumDorm + TAG_URL2);
         try{
             final ArrayList<MeetItem> array = newsTask.get();
-            ListMeetingsAdapter adapter = new ListMeetingsAdapter(this, array);
-            listViewMeetings.setAdapter(adapter);
+            /*ListMeetingsAdapter adapter = new ListMeetingsAdapter(this, array);
+            listViewMeetings.setAdapter(adapter);*/
             listViewMeetings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override
@@ -144,6 +143,12 @@ public class MeetingsActivity extends Activity {
     class JSONParse extends AsyncTask<String, String, ArrayList<MeetItem>> {
 
         @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+        }
+
+        @Override
         protected ArrayList<MeetItem> doInBackground(String... args) {
             JSONParser news_jParser = new JSONParser();
             JSONArray json = news_jParser.getJSONFromUrl(args[0]);
@@ -172,7 +177,10 @@ public class MeetingsActivity extends Activity {
         }
 
         @Override
-        protected void onPostExecute(ArrayList<MeetItem> news_array) {
+        protected void onPostExecute(ArrayList<MeetItem> array) {
+            ListMeetingsAdapter adapter = new ListMeetingsAdapter(MeetingsActivity.this, array);
+            listViewMeetings.setAdapter(adapter);
+
         }
 
     }

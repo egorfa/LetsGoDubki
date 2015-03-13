@@ -34,7 +34,8 @@
         android:id="@+id/title"
         android:layout_toRightOf="@+id/time"
         android:gravity="center_vertical"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:textColor="@color/Red" />
 
 
     <RelativeLayout

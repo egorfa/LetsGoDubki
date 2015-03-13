@@ -9,7 +9,6 @@
         android:layout_height="fill_parent"
         android:background="@color/Background"
         android:id="@+id/RL"
-        android:layout_above="@+id/rlBot"
         android:paddingBottom="20dp">
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -49,7 +48,7 @@
             android:textColor="@color/Red"
             android:textSize="20sp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
             android:gravity="center"/>
 
         <EditText
@@ -77,12 +76,12 @@
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:background="@android:color/transparent"
-            android:layout_below="@+id/number1"
-            android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:id="@+id/imgTypeAdd"
             android:src="@drawable/guitar"
-            android:scaleType="fitXY" />
+            android:scaleType="fitXY"
+            android:layout_alignTop="@+id/typeAdd"
+            android:layout_marginTop="-10dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -118,7 +117,7 @@
             android:textColor="@color/Red"
             android:textSize="20sp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
             android:gravity="center"/>
 
         <EditText
@@ -144,8 +143,8 @@
             android:textColor="@color/Red"
             android:textSize="20sp"
             android:layout_alignLeft="@+id/number3"
-            android:layout_marginTop="20dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:layout_alignTop="@+id/number4" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -171,7 +170,7 @@
             android:textColor="@color/Red"
             android:textSize="20sp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
             android:gravity="center"/>
 
         <ScrollView
@@ -205,7 +204,7 @@
             android:textColor="@color/Red"
             android:textSize="20sp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
             android:gravity="center"/>
 
         <EditText
@@ -231,7 +230,7 @@
             android:textColor="@color/Red"
             android:textSize="20sp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
             android:gravity="center"/>
 
         <EditText
@@ -258,46 +257,38 @@
             android:textColor="@color/Red"
             android:textSize="20sp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
             android:gravity="center"/>
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="30dp"
             android:id="@+id/needPeopleText"
             android:layout_alignBottom="@+id/number9"
             android:background="@color/white"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentRight="false"
             android:layout_marginRight="20dp"
             android:layout_toEndOf="@+id/number9"
             android:layout_marginLeft="20dp"
             android:inputType="number"
-            android:hint="Желаемое число людей"
+            android:hint="Всего людей"
             android:gravity="center"
             android:paddingTop="5dp"/>
 
-        </RelativeLayout>
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:text="Готово"
+            android:id="@+id/btn_go"
+            android:layout_alignTop="@+id/needPeopleText"
+            android:layout_toEndOf="@+id/needPeopleText"
+            android:gravity="center"
+            android:background="@color/Blue"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:layout_marginRight="20dp" />
+
+    </RelativeLayout>
     </ScrollView>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="70dp"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/rlBot"
-        android:orientation="vertical"
-        android:background="@color/Blue">
-
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/go_btn"
-            android:layout_gravity="center"
-            android:scaleType="centerCrop"
-            android:background="@android:color/transparent"
-            android:id="@+id/btn_go" />
-
-        </RelativeLayout>
 
 </RelativeLayout>

@@ -26,6 +26,7 @@ dependencies {
     compile 'com.pnikosis:materialish-progress:1.4'
     compile 'com.twotoasters.jazzylistview:library:1.2.0'
     compile 'com.github.citux:datetimepicker:0.1.2'
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'
 
 /*
 

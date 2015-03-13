@@ -3,7 +3,6 @@ package com.dtd.letsgodubki;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.webkit.WebView;
 
 /**
  * Created by Egor on 16.01.2015.
@@ -16,8 +15,6 @@ public class Splash_screen extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_splash);
-        WebView wv = (WebView) findViewById(R.id.wv);
-        wv.loadUrl("file:///android_asset/splash.html");
 
 
                 Thread logoTimer = new Thread()
@@ -26,7 +23,7 @@ public class Splash_screen extends Activity {
             {
                 try {
 
-                    sleep(3600);
+                    sleep(3450);
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();

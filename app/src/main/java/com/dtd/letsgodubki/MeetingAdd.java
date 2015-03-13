@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -125,7 +126,7 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
         });
 
 
-        ImageButton addMeet = (ImageButton) findViewById(R.id.btn_go);
+        Button addMeet = (Button) findViewById(R.id.btn_go);
 
         addMeet.setOnClickListener(new View.OnClickListener() {
             @Override
