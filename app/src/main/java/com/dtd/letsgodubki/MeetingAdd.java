@@ -139,8 +139,8 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
             public void onClick(View view) {
                 Vibrator vibrator = (Vibrator) MeetingAdd.this.getSystemService(Context.VIBRATOR_SERVICE);
                 vibrator.vibrate(100);
-                //if(validEditText()) {
-                response_add respTask = new response_add();
+                if(validEditText()) {
+                ResponseAdd respTask = new ResponseAdd();
                 String category = null;
                 if (addImage.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.drink).getConstantState())) {
                     category = "drink";
@@ -182,9 +182,10 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
                     String endT = yearP.toString()+ "-" + str_month + "-" + str_day + "T" + hourP.toString() + startT.substring(13, startT.length());
 
                 respTask.execute(startT, endT, title.getText().toString(), description.getText().toString(), category, contacts.getText().toString(), currentPeople.getText().toString(), limit.getText().toString(), hostel.getText().toString());
-                /*}else{
+
+                }else{
                     showToast("Не все поля заполнены");
-                }*/
+                }
             }
         });
 
@@ -292,7 +293,7 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
     }
 
 
-    private class response_add extends AsyncTask<String, Void, Integer> {
+    private class ResponseAdd extends AsyncTask<String, Void, Integer> {
 
 
         @Override

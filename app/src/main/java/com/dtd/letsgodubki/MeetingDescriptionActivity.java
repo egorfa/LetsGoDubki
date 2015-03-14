@@ -17,8 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pnikosis.materialishprogress.ProgressWheel;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -26,6 +24,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.IOException;
 
+import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -37,7 +36,11 @@ public class MeetingDescriptionActivity extends Activity{
     TextView title, time, peopleNumber, flat, content, vkId, dormitory, message, consist;
     ImageView imageTheme;
     Button btnGo;
-    ProgressWheel wheel;
+    CircularProgressBar bar;
+
+    Integer CurNumPeople;
+    Integer NeedNumPeople;
+
 
     Toast m_currentToast;
 
@@ -66,12 +69,12 @@ public class MeetingDescriptionActivity extends Activity{
         dormitory =     (TextView) findViewById(R.id.number);
         vkId =          (TextView) findViewById(R.id.vkId);
         btnGo =         (Button)findViewById(R.id.btnGoJoin);
-        wheel =         (ProgressWheel) findViewById(R.id.progress_wheel);
+        bar =         (CircularProgressBar) findViewById(R.id.bar);
         message =         (TextView) findViewById(R.id.message);
         consist =       (TextView) findViewById(R.id.txt_consist);
 
         message.setVisibility(View.INVISIBLE);
-        wheel.setVisibility(View.INVISIBLE);
+        bar.setVisibility(View.INVISIBLE);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -79,8 +82,8 @@ public class MeetingDescriptionActivity extends Activity{
                 String Theme = extras.getString("Theme");
                 String Time = extras.getString("Time");
                 String category = extras.getString("Category");
-                Integer CurNumPeople = extras.getInt("CurNumPeople", 0);
-                Integer NeedNumPeople = extras.getInt("NeedNumPeople", 0);
+                CurNumPeople = extras.getInt("CurNumPeople", 0);
+                NeedNumPeople = extras.getInt("NeedNumPeople", 0);
                 Integer FlatNum = extras.getInt("flatNum", 0);
                 Integer Dormitory = extras.getInt("Dormitory", 0);
                 String Description = extras.getString("Content");
@@ -147,7 +150,7 @@ public class MeetingDescriptionActivity extends Activity{
 
         @Override
         protected void onPreExecute(){
-            wheel.setVisibility(View.VISIBLE);
+            bar.setVisibility(View.VISIBLE);
         }
 
 
@@ -171,7 +174,7 @@ public class MeetingDescriptionActivity extends Activity{
 
         @Override
         protected void onPostExecute(Integer result) {
-            wheel.setVisibility(View.INVISIBLE);
+            bar.setVisibility(View.INVISIBLE);
             consist.setVisibility(View.INVISIBLE);
             peopleNumber.setVisibility(View.INVISIBLE);
             switch(result) {
@@ -180,6 +183,7 @@ public class MeetingDescriptionActivity extends Activity{
                     message.setText("УСПЕХ");
                     message.setVisibility(View.VISIBLE);
                     showToast("Вы добавлены на встречу.");
+                    peopleNumber.setText(String.valueOf(++CurNumPeople) + "/" + NeedNumPeople.toString());
                     break;
                 default:
                     LinearLayout ll = (LinearLayout) findViewById(R.id.ll2);
@@ -190,6 +194,7 @@ public class MeetingDescriptionActivity extends Activity{
                     if(result==503)
                     {
                         showToast("Извините, на эту встречу уже нет мест.");
+
                     }else{
                         showToast("Извините, запрос отклонён. Попробуйте позже.");
                     }

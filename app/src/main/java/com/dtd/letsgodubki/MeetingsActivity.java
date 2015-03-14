@@ -17,8 +17,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
+import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -43,7 +43,9 @@ public class MeetingsActivity extends Activity {
 
 
     TextView mTitle;
+    CircularProgressBar bar;
     JazzyListView listViewMeetings;
+    ArrayList<MeetItem> Array;
 
     String NumDorm;
 
@@ -73,6 +75,9 @@ public class MeetingsActivity extends Activity {
 
         setContentView(R.layout.meetings_list);
 
+        bar = (CircularProgressBar) findViewById(R.id.bar);
+        bar.setVisibility(View.VISIBLE);
+
         View view = getActionBar().getCustomView();
         mTitle = (TextView) view.findViewById(R.id.actionbarTitle);
         //title = (TextView) view.findViewById(R.id.title);
@@ -80,9 +85,9 @@ public class MeetingsActivity extends Activity {
         Intent intent = getIntent();
         NumDorm = intent.getExtras().getString("Dormitory");
         String dorm = "";
-        switch (NumDorm.toString()){
+        switch (NumDorm){
             case "7":
-                dorm=NumDorm.toString();
+                dorm=NumDorm;
                 break;
             case "91":
                 dorm = "9/1";
@@ -96,12 +101,9 @@ public class MeetingsActivity extends Activity {
 
         listViewMeetings = (JazzyListView) findViewById(R.id.LV1);
 
-        JSONParse newsTask = new JSONParse();
-        newsTask.execute(TAG_URL1 + NumDorm + TAG_URL2);
-        try{
-            final ArrayList<MeetItem> array = newsTask.get();
-            /*ListMeetingsAdapter adapter = new ListMeetingsAdapter(this, array);
-            listViewMeetings.setAdapter(adapter);*/
+        MeetingsList meetingsTask = new MeetingsList();
+        meetingsTask.execute(TAG_URL1 + NumDorm + TAG_URL2);
+
             listViewMeetings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override
@@ -109,15 +111,15 @@ public class MeetingsActivity extends Activity {
 
                     Intent intent = new Intent(MeetingsActivity.this, MeetingDescriptionActivity.class);
 
-                    intent.putExtra("Theme", array.get(position).header);
-                    intent.putExtra("Time", array.get(position).starttime);
-                    intent.putExtra("Category", array.get(position).category);
-                    intent.putExtra("CurNumPeople", array.get(position).currentp);
-                    intent.putExtra("NeedNumPeople", array.get(position).limitp);
-                    intent.putExtra("Content", array.get(position).description);
-                    intent.putExtra("Dormitory", array.get(position).dormitory);
-                    intent.putExtra("Contacts", array.get(position).contacts);
-                    intent.putExtra("ID", array.get(position).ID);
+                    intent.putExtra("Theme", Array.get(position).header);
+                    intent.putExtra("Time", Array.get(position).starttime);
+                    intent.putExtra("Category", Array.get(position).category);
+                    intent.putExtra("CurNumPeople", Array.get(position).currentp);
+                    intent.putExtra("NeedNumPeople", Array.get(position).limitp);
+                    intent.putExtra("Content", Array.get(position).description);
+                    intent.putExtra("Dormitory", Array.get(position).dormitory);
+                    intent.putExtra("Contacts", Array.get(position).contacts);
+                    intent.putExtra("ID", Array.get(position).ID);
                     //intent.putExtra("flatNum", array.get(position).flat);
 
                     Vibrator vibrator = (Vibrator) MeetingsActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
@@ -127,15 +129,9 @@ public class MeetingsActivity extends Activity {
                     finish();
                 }
             });
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
     }
 
-    class JSONParse extends AsyncTask<String, String, ArrayList<MeetItem>> {
+    class MeetingsList extends AsyncTask<String, String, ArrayList<MeetItem>> {
 
         @Override
         protected void onPreExecute()
@@ -173,6 +169,8 @@ public class MeetingsActivity extends Activity {
 
         @Override
         protected void onPostExecute(ArrayList<MeetItem> array) {
+            bar.setVisibility(View.INVISIBLE);
+            Array = array;
             ListMeetingsAdapter adapter = new ListMeetingsAdapter(MeetingsActivity.this, array);
             listViewMeetings.setAdapter(adapter);
 
