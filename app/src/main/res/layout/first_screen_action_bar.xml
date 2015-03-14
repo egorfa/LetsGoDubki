@@ -4,36 +4,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/lvActionBar"
-    android:weightSum="10"
     android:background="@color/Blue">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:textSize="25sp"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:id="@+id/actionbarTitle"
-        android:layout_weight="9"
-        android:text="ОБЩЕЖИТИЯ" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:layout_gravity="center"
-        android:background="@color/BlueDark">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:id="@+id/actionbarTitle"
+            android:layout_centerInParent="true"
+            android:text="ОБЩЕЖИТИЯ" />
 
-        <ImageButton
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:id="@+id/addBtn"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/plus"
-            android:scaleType="fitCenter"
-            android:background="@android:color/transparent"
-            android:layout_weight="1"
-            android:layout_gravity="center" />
-    </FrameLayout>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/addLayout"
+            android:layout_alignParentRight="true"
+            android:background="@color/BlueDark">
+
+            <ImageButton
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/addBtn"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/plus"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                android:layout_gravity="center" />
+        </FrameLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -41,6 +42,8 @@ public class FirstActivity extends Activity {
 
     View.OnClickListener clicker = new View.OnClickListener(){
         public void onClick(View v){
+            Vibrator vibrator = (Vibrator) FirstActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(100);
             Intent intent = new Intent(FirstActivity.this, MeetingsActivity.class);
             switch (v.getId()) {
                 case R.id.btn7:
@@ -53,6 +56,7 @@ public class FirstActivity extends Activity {
                     intent.putExtra("Dormitory", "92");
             }
             FirstActivity.this.startActivity(intent);
+            overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
         }
     };
 
@@ -60,8 +64,11 @@ public class FirstActivity extends Activity {
 
         @Override
         public void onClick(View v) {
+            Vibrator vibrator = (Vibrator) FirstActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(100);
             Intent intent = new Intent(FirstActivity.this, MeetingAdd.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.activity_down_up_enter,R.anim.activity_down_up_exit);
         }
 
     };

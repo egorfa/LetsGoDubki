@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:allowBackup="true"
@@ -36,14 +37,14 @@
         <activity
             android:label="Встречи_Описание"
             android:name=".MeetingDescriptionActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/FirstScreenActionTheme">
 
 
         </activity>
         <activity
             android:label="Встречи_Добавление"
             android:name=".MeetingAdd"
-            android:theme="@style/AppTheme"
+            android:theme="@style/FirstScreenActionTheme"
             android:windowSoftInputMode="adjustPan">
 
 

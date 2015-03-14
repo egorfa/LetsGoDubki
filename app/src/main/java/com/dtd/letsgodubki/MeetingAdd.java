@@ -1,11 +1,13 @@
 package com.dtd.letsgodubki;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,7 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.datetimepicker.date.DatePickerDialog;
@@ -87,6 +91,8 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
 
         setContentView(R.layout.meeting_add);
 
+        setCustomActionBar();
+
         calendar = Calendar.getInstance();
 
         TPD = TimePickerDialog.newInstance(MeetingAdd.this, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
@@ -131,6 +137,8 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
         addMeet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Vibrator vibrator = (Vibrator) MeetingAdd.this.getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.vibrate(100);
                 //if(validEditText()) {
                 response_add respTask = new response_add();
                 String category = null;
@@ -368,6 +376,19 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
         m_currentToast.setGravity(Gravity.CENTER,0,0);
         m_currentToast.show();
 
+    }
+
+    private void setCustomActionBar(){
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        View customView = getLayoutInflater().inflate(R.layout.first_screen_action_bar, null);
+        ImageView addBtn = (ImageView) customView.findViewById(R.id.addBtn);
+        addBtn.setVisibility(View.INVISIBLE);
+        FrameLayout frameLayout = (FrameLayout)customView.findViewById(R.id.addLayout);
+        frameLayout.setBackgroundColor(getResources().getColor(R.color.Blue));
+        TextView title = (TextView)customView.findViewById(R.id.actionbarTitle);
+        title.setText("ЗАЯВКА");
+        actionBar.setCustomView(customView);
     }
 
 }

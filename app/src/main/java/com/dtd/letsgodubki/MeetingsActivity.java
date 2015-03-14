@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -74,7 +75,7 @@ public class MeetingsActivity extends Activity {
 
         View view = getActionBar().getCustomView();
         mTitle = (TextView) view.findViewById(R.id.actionbarTitle);
-
+        //title = (TextView) view.findViewById(R.id.title);
 
         Intent intent = getIntent();
         NumDorm = intent.getExtras().getString("Dormitory");
@@ -91,13 +92,9 @@ public class MeetingsActivity extends Activity {
                 break;
         }
 
-        mTitle.setText("Встречи в " + dorm);
-
-
+        mTitle.setText("Встречи в " + "«" + dorm + "»");
 
         listViewMeetings = (JazzyListView) findViewById(R.id.LV1);
-
-
 
         JSONParse newsTask = new JSONParse();
         newsTask.execute(TAG_URL1 + NumDorm + TAG_URL2);
@@ -123,21 +120,19 @@ public class MeetingsActivity extends Activity {
                     intent.putExtra("ID", array.get(position).ID);
                     //intent.putExtra("flatNum", array.get(position).flat);
 
+                    Vibrator vibrator = (Vibrator) MeetingsActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
+                    vibrator.vibrate(100);
                     startActivity(intent);
                     overridePendingTransition(R.anim.activity_down_up_enter, R.anim.activity_down_up_exit);
                     finish();
                 }
             });
 
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
-
-
     }
 
     class JSONParse extends AsyncTask<String, String, ArrayList<MeetItem>> {

@@ -1,14 +1,17 @@
 package com.dtd.letsgodubki;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -52,6 +55,8 @@ public class MeetingDescriptionActivity extends Activity{
 
         setContentView(R.layout.meeting_description);
 
+        setCustomActionBar();
+
         title =         (TextView)findViewById(R.id.theme);
         time =          (TextView)findViewById(R.id.dscrTime);
         peopleNumber =  (TextView)findViewById(R.id.peopleNum);
@@ -83,10 +88,12 @@ public class MeetingDescriptionActivity extends Activity{
                 Id = extras.getString("ID");
 
                 try {
+                    //title.setText(Upp);
                     title.setText("«" + Theme + "»");
                     if(!Time.equals("")){
-                    String t = Time.substring(11, 16);
-                    time.setText(t);}
+                        String t = Time.substring(11, 16);
+                        time.setText(t);
+                    }
                     peopleNumber.setText(CurNumPeople.toString() + "/" + NeedNumPeople.toString());
                     flat.setText(FlatNum.toString());
                     content.setText(Description);
@@ -117,6 +124,8 @@ public class MeetingDescriptionActivity extends Activity{
         btnGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Vibrator vibrator = (Vibrator) MeetingDescriptionActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.vibrate(100);
                 if(btnGo.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.error_icon).getConstantState()) || btnGo.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.done_icon).getConstantState())){
                     LinearLayout ll = (LinearLayout) findViewById(R.id.ll2);
                     ll.setBackgroundColor(getResources().getColor(R.color.Blue));
@@ -199,6 +208,19 @@ public class MeetingDescriptionActivity extends Activity{
         m_currentToast.setGravity(Gravity.CENTER,0,0);
         m_currentToast.show();
 
+    }
+
+    private void setCustomActionBar(){
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        View customView = getLayoutInflater().inflate(R.layout.first_screen_action_bar, null);
+        ImageView addBtn = (ImageView) customView.findViewById(R.id.addBtn);
+        addBtn.setVisibility(View.INVISIBLE);
+        FrameLayout frameLayout = (FrameLayout)customView.findViewById(R.id.addLayout);
+        frameLayout.setBackgroundColor(getResources().getColor(R.color.Blue));
+        TextView title = (TextView)customView.findViewById(R.id.actionbarTitle);
+        title.setText("МЕРОПРИЯТИЕ");
+        actionBar.setCustomView(customView);
     }
 
 }
