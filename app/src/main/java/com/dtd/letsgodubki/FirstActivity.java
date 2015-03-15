@@ -3,11 +3,16 @@ package com.dtd.letsgodubki;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -15,6 +20,50 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class FirstActivity extends Activity {
 
+    private static String URL = "https://letsgodubki-dtd.appspot.com/_ah/api/dubkiapi/v1/itemscount";
+
+    TextView tv7;
+    TextView tv91;
+    TextView tv92;
+
+    private class ArrayDorm{
+        private String Dorm7;
+        private String Dorm91;
+        private String Dorm92;
+
+        private ArrayDorm(String dorm7, String dorm91, String dorm92) {
+            Dorm7 = dorm7;
+            Dorm91 = dorm91;
+            Dorm92 = dorm92;
+        }
+
+        private ArrayDorm() {
+        }
+
+        public String getDorm7() {
+            return Dorm7;
+        }
+
+        public void setDorm7(String dorm7) {
+            Dorm7 = dorm7;
+        }
+
+        public String getDorm91() {
+            return Dorm91;
+        }
+
+        public void setDorm91(String dorm91) {
+            Dorm91 = dorm91;
+        }
+
+        public String getDorm92() {
+            return Dorm92;
+        }
+
+        public void setDorm92(String dorm92) {
+            Dorm92 = dorm92;
+        }
+    }
 
     @Override
     protected void attachBaseContext(Context newBase){
@@ -27,6 +76,12 @@ public class FirstActivity extends Activity {
         CalligraphyConfig.initDefault("fonts/5haPbT1K.ttf");
         setContentView(R.layout.activity_first);
 
+        tv7 = (TextView) findViewById(R.id.tv7);
+        tv91 = (TextView) findViewById(R.id.tv9_1);
+        tv92 = (TextView) findViewById(R.id.tv9_2);
+
+        ItemsCountTask itemsCountTask = new ItemsCountTask();
+        itemsCountTask.execute(URL);
 
 
         Button btn9_1 = (Button)findViewById(R.id.btn9_1);
@@ -55,7 +110,7 @@ public class FirstActivity extends Activity {
                 case R.id.btn9_2:
                     intent.putExtra("Dormitory", "92");
             }
-            FirstActivity.this.startActivity(intent);
+            startActivity(intent);
             overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
         }
     };
@@ -72,5 +127,60 @@ public class FirstActivity extends Activity {
         }
 
     };
+
+
+    class ItemsCountTask extends AsyncTask<String, String, ArrayDorm> {
+
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected ArrayDorm doInBackground(String... args) {
+            JSONParserObj news_jParser = new JSONParserObj();
+            JSONObject json = news_jParser.getJSONFromUrl(args[0]);
+            ArrayDorm Dorms = null;
+            if (json!=null){
+                try {
+                    Dorms = new ArrayDorm();
+                    if(json.has("dorm7")){
+                    Dorms.setDorm7(json.getString("dorm7"));
+                    }else{
+                        Dorms.setDorm7("");
+                    }
+                    if(json.has("dorm91")){
+                    Dorms.setDorm91(json.getString("dorm91"));
+                    }else{
+                        Dorms.setDorm91("");
+                    }
+                    if(json.has("dorm92")) {
+                        Dorms.setDorm92(json.getString("dorm92"));
+                    }else{
+                        Dorms.setDorm92("");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            return Dorms;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayDorm dorms) {
+            if(dorms!=null){
+             tv7.setText("+" + dorms.getDorm7());
+            tv91.setText("+" + dorms.getDorm91());
+            tv92.setText("+" + dorms.getDorm92());}
+            else{
+                tv7.setText("+" + "0");
+                tv91.setText("+" + "0");
+                tv92.setText("+" + "0");
+            }
+        }
+
+    }
+
 
 }
