@@ -68,9 +68,16 @@ public class FirstActivity extends Activity {
             vibrator.vibrate(100);
             Intent intent = new Intent(FirstActivity.this, MeetingAdd.class);
             startActivity(intent);
-            overridePendingTransition(R.anim.activity_down_up_enter,R.anim.activity_down_up_exit);
+            overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+            //overridePendingTransition(R.anim.activity_down_up_enter,R.anim.activity_down_up_exit);
         }
 
     };
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+    }
 
 }

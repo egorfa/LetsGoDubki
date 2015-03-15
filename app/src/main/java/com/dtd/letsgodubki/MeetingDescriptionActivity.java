@@ -228,4 +228,13 @@ public class MeetingDescriptionActivity extends Activity{
         actionBar.setCustomView(customView);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Vibrator vibrator = (Vibrator) MeetingDescriptionActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(100);
+        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+        finish();
+    }
+
 }

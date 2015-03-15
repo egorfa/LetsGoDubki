@@ -71,6 +71,7 @@ public class MeetingsActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
         CalligraphyConfig.initDefault("fonts/5haPbT1K.ttf");
 
         setContentView(R.layout.meetings_list);
@@ -190,7 +191,11 @@ public class MeetingsActivity extends Activity {
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
+        super.onBackPressed();
+        Vibrator vibrator = (Vibrator) MeetingsActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(100);
+        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
         finish();
     }
 }
