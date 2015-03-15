@@ -3,12 +3,20 @@ package com.dtd.letsgodubki;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.twotoasters.jazzylistview.JazzyListView;
 
@@ -34,6 +42,7 @@ public class MeetingsActivity extends Activity {
     private String TAG_CONTACTS = "contacts";
     private String TAG_CURRENTP = "currentp";
     private String TAG_DORMITORY = "dormitory";
+    private String TAG_FLAT = "room";
     private String TAG_HEADER = "header";
     private String TAG_STARTTIME = "starttime";
     private String TAG_ENDTIME = "endtime";
@@ -42,7 +51,9 @@ public class MeetingsActivity extends Activity {
     private String TAG_ID = "id";
 
 
-    TextView mTitle;
+    TextView mTitle, tvText;
+    ImageView imgSmile;
+    Button plus;
     CircularProgressBar bar;
     JazzyListView listViewMeetings;
     ArrayList<MeetItem> Array;
@@ -54,7 +65,8 @@ public class MeetingsActivity extends Activity {
         Integer limitp;
         String contacts;
         Integer currentp;
-        Integer dormitory;
+        String dormitory;
+        Integer flat;
         String header;
         String starttime;
         String endtime;
@@ -103,7 +115,13 @@ public class MeetingsActivity extends Activity {
         listViewMeetings = (JazzyListView) findViewById(R.id.LV1);
 
         MeetingsList meetingsTask = new MeetingsList();
-        meetingsTask.execute(TAG_URL1 + NumDorm + TAG_URL2);
+        if(isOnline()) {
+            meetingsTask.execute(TAG_URL1 + NumDorm + TAG_URL2);
+        }
+        else{
+            bar.setVisibility(View.INVISIBLE);
+            Toast.makeText(this, "Отсутствует интернет-соединение", Toast.LENGTH_LONG).show();
+        }
 
             listViewMeetings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -118,6 +136,7 @@ public class MeetingsActivity extends Activity {
                     intent.putExtra("CurNumPeople", Array.get(position).currentp);
                     intent.putExtra("NeedNumPeople", Array.get(position).limitp);
                     intent.putExtra("Content", Array.get(position).description);
+                    intent.putExtra("flatNum", Array.get(position).flat);
                     intent.putExtra("Dormitory", Array.get(position).dormitory);
                     intent.putExtra("Contacts", Array.get(position).contacts);
                     intent.putExtra("ID", Array.get(position).ID);
@@ -126,7 +145,7 @@ public class MeetingsActivity extends Activity {
                     Vibrator vibrator = (Vibrator) MeetingsActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
                     vibrator.vibrate(100);
                     startActivity(intent);
-                    overridePendingTransition(R.anim.activity_down_up_enter, R.anim.activity_down_up_exit);
+                    overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
                     finish();
                 }
             });
@@ -152,7 +171,8 @@ public class MeetingsActivity extends Activity {
                         buf.limitp = Integer.valueOf(checkNull(json.getJSONObject(i), TAG_LIMITP));
                         buf.contacts = checkNull(json.getJSONObject(i), TAG_CONTACTS);
                         buf.currentp = Integer.valueOf(checkNull(json.getJSONObject(i), TAG_CURRENTP));
-                        buf.dormitory = Integer.valueOf(checkNull(json.getJSONObject(i), TAG_DORMITORY));
+                        buf.dormitory = String.valueOf(checkNull(json.getJSONObject(i), TAG_DORMITORY));
+                        buf.flat = Integer.valueOf(checkNull(json.getJSONObject(i), TAG_FLAT));
                         buf.header = checkNull(json.getJSONObject(i), TAG_HEADER);
                         buf.starttime= checkNull(json.getJSONObject(i), TAG_STARTTIME);
                         buf.endtime = checkNull(json.getJSONObject(i), TAG_ENDTIME);
@@ -174,6 +194,35 @@ public class MeetingsActivity extends Activity {
             Array = array;
             ListMeetingsAdapter adapter = new ListMeetingsAdapter(MeetingsActivity.this, array);
             listViewMeetings.setAdapter(adapter);
+            Animation animation = AnimationUtils.loadAnimation(MeetingsActivity.this, android.R.anim.fade_in);
+            listViewMeetings.startAnimation(animation);
+            listViewMeetings.setVisibility(View.VISIBLE);
+            long id = listViewMeetings.getCount();
+            if(id == 0){
+
+                RelativeLayout rl = (RelativeLayout)findViewById(R.id.rlNoItems);
+                rl.startAnimation(animation);
+                rl.setVisibility(View.VISIBLE);
+
+                tvText = (TextView)findViewById(R.id.textView2);
+                imgSmile = (ImageView)findViewById(R.id.imageView);
+                plus = (Button)findViewById(R.id.buttonPlus);
+
+                tvText.setVisibility(View.VISIBLE);
+                imgSmile.setVisibility(View.VISIBLE);
+                plus.setVisibility(View.VISIBLE);
+
+                plus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MeetingsActivity.this, MeetingAdd.class);
+                        startActivity(intent);
+                        Vibrator vibrator = (Vibrator) MeetingsActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
+                        vibrator.vibrate(100);
+                        overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
+                    }
+                });
+            }
 
         }
 
@@ -195,7 +244,14 @@ public class MeetingsActivity extends Activity {
         super.onBackPressed();
         Vibrator vibrator = (Vibrator) MeetingsActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(100);
-        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+        overridePendingTransition(R.anim.push_right_in,R.anim.push_right_out);
         finish();
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }

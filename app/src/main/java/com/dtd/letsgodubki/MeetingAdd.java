@@ -5,20 +5,26 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,8 +68,9 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
     EditText description;
     EditText contacts;
     EditText limit;
-    EditText hostel;
+    Spinner hostel;
     EditText currentPeople;
+    EditText flat;
 
 
     ImageButton addImage;
@@ -103,14 +110,37 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
         description = (EditText) findViewById(R.id.commentsText);
         contacts = (EditText) findViewById(R.id.contactsText);
         limit = (EditText) findViewById(R.id.needPeopleText);
-        hostel = (EditText) findViewById(R.id.hostelText);
+        hostel = (Spinner) findViewById(R.id.hostelSpinner);
         currentPeople = (EditText) findViewById(R.id.curPeopleText);
+        flat = (EditText)findViewById(R.id.flatText);
 
         addImage = (ImageButton) findViewById(R.id.imgTypeAdd);
         addImage.setImageResource(R.drawable.button_plus);
         //android.widget.ListView mListView = new ListView(this);
         //ArrayList<String> values = new ArrayList<String>();
         //values.add("ТУСОВКА");
+
+        final ArrayList<String> Hostels = new ArrayList<String>();
+        Hostels.add("7");
+        Hostels.add("9/1");
+        Hostels.add("9/2");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_textview, R.id.spinnerView, Hostels){
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent){
+                if (convertView == null){
+                    LayoutInflater vi = (LayoutInflater) MeetingAdd.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    convertView = vi.inflate(R.layout.spinner_dropdown, null);
+                }
+
+                TextView textView = (TextView) convertView.findViewById(R.id.spinnerTxt);
+                textView.setText(Hostels.get(position));
+
+                return convertView;
+            }
+        };
+        //adapter.setDropDownViewResource(R.layout.spinner_dropdown);
+        hostel.setAdapter(adapter);
 
 
         addImage.setOnClickListener(new View.OnClickListener() {
@@ -181,8 +211,20 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
 
                     String endT = yearP.toString()+ "-" + str_month + "-" + str_day + "T" + hourP.toString() + startT.substring(13, startT.length());
 
-                respTask.execute(startT, endT, title.getText().toString(), description.getText().toString(), category, contacts.getText().toString(), currentPeople.getText().toString(), limit.getText().toString(), hostel.getText().toString());
-
+                    if(isOnline()) {
+                        String hostelText = hostel.getSelectedItem().toString();
+                        if(hostelText.equals("9/1")){
+                            hostelText = "91";
+                        }
+                        else if(hostelText.equals("9/2")){
+                            hostelText = "92";
+                        }
+                        respTask.execute(startT, endT, title.getText().toString(), description.getText().toString(), category, contacts.getText().toString(), currentPeople.getText().toString(), limit.getText().toString(), hostelText, flat.getText().toString());
+                    }
+                    else{
+                        showToast("Отсутствует интернет-соединение");
+                        return;
+                    }
                 }else{
                     showToast("Не все поля заполнены");
                 }
@@ -228,8 +270,9 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
         if(description.getText().toString().equals("")) return false;
         if(contacts.getText().toString().equals("")) return false;
         if(limit.getText().toString().equals("")) return false;
-        if(hostel.getText().toString().equals("")) return false;
+        //if(hostel.getSelectedItem().toString().equals("")) return false;
         if(currentPeople.getText().toString().equals("")) return false;
+        if(flat.getText().toString().equals("")) return false;
         if(addImage.getBackground() == getResources().getDrawable(R.drawable.button_plus)) return false;
         return true;
     }
@@ -311,7 +354,7 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
             //String str = null;
             Integer result;
             //str = EntityUtils.toString(postDataEnqueue(params[0], params[1], params[2], params[3], params[4], params[5], params[6], params[7]).getEntity());
-            result = postDataEnqueue(params[0], params[1], params[2], params[3], params[4], params[5], params[6], params[7], params[8]).getStatusLine().getStatusCode();
+            result = postDataEnqueue(params[0], params[1], params[2], params[3], params[4], params[5], params[6], params[7], params[8], params[9]).getStatusLine().getStatusCode();
 
             return result;
         }
@@ -329,7 +372,7 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
     }
 
 
-    public HttpResponse postDataEnqueue(String startTime, String endTime, String header, String description, String category, String contacts, String currentp, String limit, String dormitory){
+    public HttpResponse postDataEnqueue(String startTime, String endTime, String header, String description, String category, String contacts, String currentp, String limit, String dormitory, String flat){
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost("https://letsgodubki-dtd.appspot.com/_ah/api/dubkiapi/v1/item");///456///091
         httppost.setHeader("Content-Type", "application/json; charset=utf-8");////
@@ -348,6 +391,7 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
                 json.put("header", header);
                 json.put("limitp", limit);
                 json.put("starttime",startTime);
+                json.put("room", flat);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -357,7 +401,12 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
 
             // Выполняем HTTP Post Request
             httppost.setEntity(se);
-            response = httpclient.execute(httppost);
+            if(isOnline()) {
+                response = httpclient.execute(httppost);
+            }
+            else{
+                Toast.makeText(this, "Отсутствует интернет-соединение", Toast.LENGTH_LONG).show();
+            }
 
         } catch (ClientProtocolException e) {
         } catch (IOException e) {
@@ -397,8 +446,15 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
         super.onBackPressed();
         Vibrator vibrator = (Vibrator) MeetingAdd.this.getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(100);
-        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+        overridePendingTransition(R.anim.push_right_in,R.anim.push_right_out);
         finish();
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
 }

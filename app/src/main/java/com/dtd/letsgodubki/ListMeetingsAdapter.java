@@ -32,7 +32,10 @@ public class ListMeetingsAdapter extends BaseAdapter {
     public MeetItem getItem(int position){
         return listMeetings.get(position);
     }
-    public long getItemId(int position){return listMeetings.get(position).dormitory;}
+    public long getItemId(int position){
+        //return listMeetings.get(position).dormitory;}
+        return 0;
+    }
     public View getView(int position, View convertView, ViewGroup parent){
         ViewHolder holder;
         if(convertView == null){

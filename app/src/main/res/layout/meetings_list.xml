@@ -5,7 +5,6 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/Background">
 
     <com.twotoasters.jazzylistview.JazzyListView
@@ -17,7 +16,9 @@
         app:effect="fade"
         app:only_animate_new_items="false"
         app:only_animate_fling="false"
-        app:max_velocity="0" />
+        app:max_velocity="0"
+        android:headerDividersEnabled="false"
+        android:visibility="invisible" />
 
     <fr.castorflex.android.circularprogressbar.CircularProgressBar
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -34,6 +35,49 @@
         android:layout_centerInParent="true"
         android:id="@+id/bar" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rlNoItems"
+        android:visibility="invisible">
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Уважаемый пользователь, в данный момент в этом общежитии не создано ни одного события. Вернитесь в приложение позже, либо создайте собственное событие"
+        android:textColor="@color/PityGrey"
+        android:id="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:layout_width="65dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageView"
+        android:background="@drawable/smile"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"/>
+
+    <Button
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/buttonPlus"
+        android:layout_below="@+id/imageView"
+        android:background="@drawable/plus_round"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:visibility="invisible"/>
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

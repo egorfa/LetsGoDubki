@@ -3,13 +3,17 @@ package com.dtd.letsgodubki;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +29,7 @@ public class FirstActivity extends Activity {
     TextView tv7;
     TextView tv91;
     TextView tv92;
+    ImageView img7, img91, img92;
 
     private class ArrayDorm{
         private String Dorm7;
@@ -79,9 +84,17 @@ public class FirstActivity extends Activity {
         tv7 = (TextView) findViewById(R.id.tv7);
         tv91 = (TextView) findViewById(R.id.tv9_1);
         tv92 = (TextView) findViewById(R.id.tv9_2);
+        img7 = (ImageView)findViewById(R.id.img7);
+        img91 = (ImageView)findViewById(R.id.img91);
+        img92 = (ImageView)findViewById(R.id.img92);
 
         ItemsCountTask itemsCountTask = new ItemsCountTask();
-        itemsCountTask.execute(URL);
+        if(isOnline()) {
+            itemsCountTask.execute(URL);
+        }
+        else{
+            Toast.makeText(this, "Отсутствует интернет-соединение", Toast.LENGTH_LONG).show();
+        }
 
 
         Button btn9_1 = (Button)findViewById(R.id.btn9_1);
@@ -123,7 +136,7 @@ public class FirstActivity extends Activity {
             vibrator.vibrate(100);
             Intent intent = new Intent(FirstActivity.this, MeetingAdd.class);
             startActivity(intent);
-            overridePendingTransition(R.anim.activity_down_up_enter,R.anim.activity_down_up_exit);
+            overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
         }
 
     };
@@ -169,18 +182,53 @@ public class FirstActivity extends Activity {
 
         @Override
         protected void onPostExecute(ArrayDorm dorms) {
-            if(dorms!=null){
-             tv7.setText("+" + dorms.getDorm7());
-            tv91.setText("+" + dorms.getDorm91());
-            tv92.setText("+" + dorms.getDorm92());}
+            if(dorms!=null) {
+                if (dorms.getDorm7().equals("0")) {
+                    tv7.setVisibility(View.INVISIBLE);
+                    img7.setVisibility(View.INVISIBLE);
+                } else {
+                    tv7.setText("+" + dorms.getDorm7());
+                }
+                if (dorms.getDorm91().equals("0")) {
+                    tv91.setVisibility(View.INVISIBLE);
+                    img91.setVisibility(View.INVISIBLE);
+                } else {
+                    tv91.setText("+" + dorms.getDorm91());
+                }
+                if (dorms.getDorm92().equals("0")) {
+                    tv92.setVisibility(View.INVISIBLE);
+                    img92.setVisibility(View.INVISIBLE);
+                } else {
+                    tv92.setText("+" + dorms.getDorm92());
+                }
+            }
             else{
-                tv7.setText("+" + "0");
-                tv91.setText("+" + "0");
-                tv92.setText("+" + "0");
+                //tv7.setText("+" + "0");
+                //tv91.setText("+" + "0");
+                //tv92.setText("+" + "0");
+                tv7.setVisibility(View.INVISIBLE);
+                tv91.setVisibility(View.INVISIBLE);
+                tv92.setVisibility(View.INVISIBLE);
             }
         }
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Vibrator vibrator = (Vibrator) FirstActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(100);
+        finish();
+        System.runFinalizersOnExit(true);
+        System.exit(0);
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
 
 }

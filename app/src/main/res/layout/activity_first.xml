@@ -30,6 +30,7 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:id="@+id/img7"
                 android:src="@drawable/info_red"/>
 
             <TextView
@@ -70,6 +71,7 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:id="@+id/img91"
                 android:src="@drawable/info_red"/>
 
             <TextView
@@ -113,6 +115,7 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:id="@+id/img92"
                 android:src="@drawable/info_red"/>
 
             <TextView

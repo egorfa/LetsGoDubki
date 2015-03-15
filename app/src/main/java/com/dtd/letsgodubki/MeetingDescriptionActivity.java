@@ -4,6 +4,8 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -85,10 +87,17 @@ public class MeetingDescriptionActivity extends Activity{
                 CurNumPeople = extras.getInt("CurNumPeople", 0);
                 NeedNumPeople = extras.getInt("NeedNumPeople", 0);
                 Integer FlatNum = extras.getInt("flatNum", 0);
-                Integer Dormitory = extras.getInt("Dormitory", 0);
+                String Dormitory = extras.getString("Dormitory");
                 String Description = extras.getString("Content");
                 String Contacts = extras.getString("Contacts");
                 Id = extras.getString("ID");
+
+                if(Dormitory.equals("91")){
+                    Dormitory = "9/1";
+                }
+                if(Dormitory.equals("92")){
+                    Dormitory = "9/2";
+                }
 
                 try {
                     //title.setText(Upp);
@@ -100,7 +109,7 @@ public class MeetingDescriptionActivity extends Activity{
                     peopleNumber.setText(CurNumPeople.toString() + "/" + NeedNumPeople.toString());
                     flat.setText(FlatNum.toString());
                     content.setText(Description);
-                    dormitory.setText(Dormitory.toString());
+                    dormitory.setText(Dormitory);
                     vkId.setText(Contacts);
 
 
@@ -139,7 +148,12 @@ public class MeetingDescriptionActivity extends Activity{
                 }else {
 
                     SubscribeAsync subscribe = new SubscribeAsync();
-                    subscribe.execute(Id);
+                    if(isOnline()) {
+                        subscribe.execute(Id);
+                    }
+                    else{
+                        Toast.makeText(MeetingDescriptionActivity.this, "Отсутствует интернет-соединение", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
@@ -233,8 +247,15 @@ public class MeetingDescriptionActivity extends Activity{
         super.onBackPressed();
         Vibrator vibrator = (Vibrator) MeetingDescriptionActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(100);
-        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+        overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
         finish();
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
 }
