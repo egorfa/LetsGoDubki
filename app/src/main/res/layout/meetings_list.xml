@@ -46,7 +46,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Уважаемый пользователь, в данный момент в этом общежитии не создано ни одного события. Вернитесь в приложение позже, либо создайте собственное событие"
+        android:text="Уважаемый пользователь, в данный момент в этом общежитии не создано ни одного события. Вернитесь в приложение позже либо создайте собственное событие"
         android:textColor="@color/PityGrey"
         android:id="@+id/textView2"
         android:layout_centerHorizontal="true"

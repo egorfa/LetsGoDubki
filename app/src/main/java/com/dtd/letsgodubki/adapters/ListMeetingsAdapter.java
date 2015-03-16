@@ -1,4 +1,4 @@
-package com.dtd.letsgodubki;
+package com.dtd.letsgodubki.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.dtd.letsgodubki.MeetingsActivity.MeetItem;
+import com.dtd.letsgodubki.activities.MeetingsActivity.MeetItem;
+import com.dtd.letsgodubki.R;
 
 import java.util.List;
 

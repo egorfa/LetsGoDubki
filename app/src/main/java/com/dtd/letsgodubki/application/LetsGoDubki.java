@@ -1,4 +1,4 @@
-package com.dtd.letsgodubki;
+package com.dtd.letsgodubki.application;
 
 import android.app.Application;
 

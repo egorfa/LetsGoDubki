@@ -20,7 +20,7 @@
     <uses-permission android:name="com.dtd.letsgodubki.permission.C2D_MESSAGE" />
 
     <application
-        android:name=".LetsGoDubki"
+        android:name=".application.LetsGoDubki"
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
         android:label="@string/app_name">
@@ -59,13 +59,13 @@
 
         <!--Projects activities-->
         <activity
-            android:name=".FirstActivity"
+            android:name=".activities.FirstActivity"
             android:label="@string/activity_first"
             android:theme="@style/FirstScreenActionTheme">
 
         </activity>
         <activity
-            android:name=".Splash_screen"
+            android:name=".splash.Splash_screen"
             android:label="@string/activity_splash"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionTheme">
@@ -78,20 +78,20 @@
             </activity>
         <activity
             android:label="Встречи"
-            android:name=".MeetingsActivity"
+            android:name=".activities.MeetingsActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <activity
             android:label="Встречи_Описание"
-            android:name=".MeetingDescriptionActivity"
+            android:name=".activities.MeetingDescriptionActivity"
             android:theme="@style/FirstScreenActionTheme">
 
 
         </activity>
         <activity
             android:label="Встречи_Добавление"
-            android:name=".MeetingAdd"
+            android:name=".activities.MeetingAdd"
             android:theme="@style/FirstScreenActionTheme"
             android:windowSoftInputMode="adjustPan">
 
