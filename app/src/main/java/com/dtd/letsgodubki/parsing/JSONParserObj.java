@@ -1,4 +1,4 @@
-package com.dtd.letsgodubki;
+package com.dtd.letsgodubki.parsing;
 
 /**
  * Created by Egor on 15.03.2015.

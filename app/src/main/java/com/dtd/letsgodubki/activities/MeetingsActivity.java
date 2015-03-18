@@ -1,4 +1,4 @@
-package com.dtd.letsgodubki;
+package com.dtd.letsgodubki.activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,6 +18,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dtd.letsgodubki.R;
+import com.dtd.letsgodubki.adapters.ListMeetingsAdapter;
+import com.dtd.letsgodubki.parsing.JSONParser;
 import com.twotoasters.jazzylistview.JazzyListView;
 
 import org.json.JSONArray;
@@ -61,17 +64,17 @@ public class MeetingsActivity extends Activity {
     String NumDorm;
 
     public class MeetItem {
-        String category;
-        Integer limitp;
-        String contacts;
-        Integer currentp;
-        String dormitory;
-        Integer flat;
-        String header;
-        String starttime;
-        String endtime;
-        String description;
-        String ID;
+        public String category;
+        public Integer limitp;
+        public String contacts;
+        public Integer currentp;
+        public String dormitory;
+        public Integer flat;
+        public String header;
+        public String starttime;
+        public String endtime;
+        public String description;
+        public String ID;
     }
 
     @Override

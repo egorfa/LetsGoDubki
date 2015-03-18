@@ -1,4 +1,4 @@
-package com.dtd.letsgodubki;
+package com.dtd.letsgodubki.activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.dtd.letsgodubki.R;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;

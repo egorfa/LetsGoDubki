@@ -1,8 +1,11 @@
-package com.dtd.letsgodubki;
+package com.dtd.letsgodubki.splash;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.dtd.letsgodubki.R;
+import com.dtd.letsgodubki.activities.FirstActivity;
 
 /**
  * Created by Egor on 16.01.2015.

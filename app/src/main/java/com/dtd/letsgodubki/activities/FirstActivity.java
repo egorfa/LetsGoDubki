@@ -1,4 +1,4 @@
-package com.dtd.letsgodubki;
+package com.dtd.letsgodubki.activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,6 +14,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.dtd.letsgodubki.R;
+import com.dtd.letsgodubki.parsing.JSONParserObj;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,4 +1,4 @@
-package com.dtd.letsgodubki;
+package com.dtd.letsgodubki.intermediate;
 
 /**
  * Created by 123 on 07.02.2015.

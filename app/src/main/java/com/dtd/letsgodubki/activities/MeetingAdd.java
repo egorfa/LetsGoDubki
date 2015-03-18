@@ -1,4 +1,4 @@
-package com.dtd.letsgodubki;
+package com.dtd.letsgodubki.activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -32,6 +32,9 @@ import android.widget.Toast;
 import com.android.datetimepicker.date.DatePickerDialog;
 import com.android.datetimepicker.time.RadialPickerLayout;
 import com.android.datetimepicker.time.TimePickerDialog;
+import com.dtd.letsgodubki.intermediate.DialogMenuItem;
+import com.dtd.letsgodubki.R;
+import com.dtd.letsgodubki.adapters.ListDialogMenuAdapter;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
