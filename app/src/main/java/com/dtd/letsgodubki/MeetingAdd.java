@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -139,8 +140,11 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
                 return convertView;
             }
         };
-        //adapter.setDropDownViewResource(R.layout.spinner_dropdown);
-        hostel.setAdapter(adapter);
+
+        hostel.setAdapter(new NothingSelectedSpinnerAdapter(
+                adapter,
+                R.layout.spinner_row_nothing_selected,
+                this));
 
 
         addImage.setOnClickListener(new View.OnClickListener() {
@@ -228,6 +232,8 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
                 }else{
                     showToast("Не все поля заполнены");
                 }
+
+                vibrator.vibrate(100);
             }
         });
 
@@ -368,6 +374,9 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
                 showToast("Ошибка, попробуйте позже");
             }
             dialog.dismiss();
+            Intent intent = new Intent(MeetingAdd.this, FirstActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.push_right_in,R.anim.push_right_out);
         }
     }
 

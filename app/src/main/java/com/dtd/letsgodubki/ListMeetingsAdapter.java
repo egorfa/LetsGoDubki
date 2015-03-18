@@ -61,11 +61,8 @@ public class ListMeetingsAdapter extends BaseAdapter {
         }
 
         String title = meeting.header;
-        if (title.length() > 0) {
-            title = String.valueOf(title.charAt(0)).toUpperCase() + title.subSequence(1, title.length());
-        }
         if(title.length() > 10) {
-            title = String.valueOf(title.charAt(0)).toUpperCase() + title.substring(1, 10) + "...";
+            title = String.valueOf(title.substring(0, 10) + "...");
         }
 
         holder.txtTitle.setText(title);
