@@ -61,7 +61,8 @@
         <activity
             android:name=".activities.FirstActivity"
             android:label="@string/activity_first"
-            android:theme="@style/FirstScreenActionTheme">
+            android:theme="@style/FirstScreenActionTheme"
+            android:screenOrientation="portrait">
 
         </activity>
         <activity
@@ -79,13 +80,15 @@
         <activity
             android:label="Встречи"
             android:name=".activities.MeetingsActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
 
         </activity>
         <activity
             android:label="Встречи_Описание"
             android:name=".activities.MeetingDescriptionActivity"
-            android:theme="@style/FirstScreenActionTheme">
+            android:theme="@style/FirstScreenActionTheme"
+            android:screenOrientation="portrait">
 
 
         </activity>
@@ -93,7 +96,8 @@
             android:label="Встречи_Добавление"
             android:name=".activities.MeetingAdd"
             android:theme="@style/FirstScreenActionTheme"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait">
 
 
         </activity>

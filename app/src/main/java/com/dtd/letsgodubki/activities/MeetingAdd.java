@@ -32,9 +32,10 @@ import android.widget.Toast;
 import com.android.datetimepicker.date.DatePickerDialog;
 import com.android.datetimepicker.time.RadialPickerLayout;
 import com.android.datetimepicker.time.TimePickerDialog;
-import com.dtd.letsgodubki.intermediate.DialogMenuItem;
+import com.dtd.letsgodubki.adapters.NothingSelectedSpinnerAdapter;
 import com.dtd.letsgodubki.R;
 import com.dtd.letsgodubki.adapters.ListDialogMenuAdapter;
+import com.dtd.letsgodubki.intermediate.DialogMenuItem;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -148,6 +149,7 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
                 adapter,
                 R.layout.spinner_row_nothing_selected,
                 this));
+
 
 
         addImage.setOnClickListener(new View.OnClickListener() {

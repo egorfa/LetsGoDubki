@@ -1,4 +1,4 @@
-package com.dtd.letsgodubki;
+package com.dtd.letsgodubki.adapters;
 
 import android.content.Context;
 import android.database.DataSetObserver;
