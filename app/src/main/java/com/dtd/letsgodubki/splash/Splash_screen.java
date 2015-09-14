@@ -17,6 +17,9 @@ public class Splash_screen extends Activity {
     {
         super.onCreate(savedInstanceState);
 
+
+
+
         setContentView(R.layout.activity_splash);
 
 

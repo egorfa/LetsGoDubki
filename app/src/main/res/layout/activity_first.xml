@@ -42,6 +42,7 @@
                 android:gravity="center"
                 android:textSize="20sp"
                 android:textColor="#ffffffff" />
+
         </RelativeLayout>
 
     </FrameLayout>

@@ -95,7 +95,7 @@ public class MeetingsActivity extends Activity {
         bar.setVisibility(View.VISIBLE);
 
         View view = getActionBar().getCustomView();
-        mTitle = (TextView) view.findViewById(R.id.actionbarTitle);
+        //mTitle = (TextView) view.findViewById(R.id.actionbarTitle);
         //title = (TextView) view.findViewById(R.id.title);
 
         Intent intent = getIntent();
@@ -113,7 +113,7 @@ public class MeetingsActivity extends Activity {
                 break;
         }
 
-        mTitle.setText("Встречи в " + "«" + dorm + "»");
+//        mTitle.setText("Встречи в " + "«" + dorm + "»");
 
         listViewMeetings = (JazzyListView) findViewById(R.id.LV1);
 
