@@ -235,7 +235,7 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
                         return;
                     }
                 }else{
-                    showToast("Не все поля заполнены");
+                    showToast("Не все поля заполнены или некорректно введены данные");
                 }
 
                 vibrator.vibrate(100);
@@ -281,8 +281,11 @@ public class MeetingAdd extends Activity  implements DatePickerDialog.OnDateSetL
         if(description.getText().toString().equals("")) return false;
         if(contacts.getText().toString().equals("")) return false;
         if(limit.getText().toString().equals("")) return false;
+        if(limit.getText().toString().length() > 2) return false;
         //if(hostel.getSelectedItem().toString().equals("")) return false;
+        if(currentPeople.getText().toString().length() > 2) return false;
         if(currentPeople.getText().toString().equals("")) return false;
+        if(flat.getText().toString().length() > 4) return false;
         if(flat.getText().toString().equals("")) return false;
         if(addImage.getBackground() == getResources().getDrawable(R.drawable.button_plus)) return false;
         return true;
